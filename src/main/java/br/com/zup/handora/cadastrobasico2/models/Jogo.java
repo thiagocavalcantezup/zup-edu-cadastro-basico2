@@ -44,4 +44,8 @@ public class Jogo {
         this.link = link;
     }
 
+    public Long getId() {
+        return id;
+    }
+
 }

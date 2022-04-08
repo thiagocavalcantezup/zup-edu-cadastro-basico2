@@ -1,6 +1,7 @@
 package br.com.zup.handora.cadastrobasico2.models;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 public class JogoDTO {
 
@@ -8,6 +9,7 @@ public class JogoDTO {
     private String nome;
 
     @NotBlank
+    @Size(max = 2000)
     private String descricao;
 
     @NotBlank

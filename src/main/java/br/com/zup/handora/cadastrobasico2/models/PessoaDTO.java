@@ -3,7 +3,6 @@ package br.com.zup.handora.cadastrobasico2.models;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
 import org.springframework.http.HttpStatus;
@@ -16,8 +15,7 @@ public class PessoaDTO {
     @NotBlank
     private String nome;
 
-    @Valid
-    Set<Long> jogoIds;
+    private Set<Long> jogoIds;
 
     public PessoaDTO() {}
 
@@ -28,18 +26,21 @@ public class PessoaDTO {
 
     public Pessoa toModel(JogoRepository jogoRepository) {
         Pessoa pessoa = new Pessoa(nome);
-        Set<Jogo> novosJogos = jogoIds.stream()
-                                      .map(
-                                          id -> jogoRepository.findById(id)
-                                                              .orElseThrow(
-                                                                  () -> new ResponseStatusException(
-                                                                      HttpStatus.NOT_FOUND,
-                                                                      "Não existe um jogo com o ID informado."
+
+        if (jogoIds != null && jogoIds.size() > 0) {
+            Set<Jogo> novosJogos = jogoIds.stream()
+                                          .map(
+                                              id -> jogoRepository.findById(id)
+                                                                  .orElseThrow(
+                                                                      () -> new ResponseStatusException(
+                                                                          HttpStatus.NOT_FOUND,
+                                                                          "Não existe um jogo com o ID informado."
+                                                                      )
                                                                   )
-                                                              )
-                                      )
-                                      .collect(Collectors.toSet());
-        pessoa.adicionar(novosJogos);
+                                          )
+                                          .collect(Collectors.toSet());
+            pessoa.adicionar(novosJogos);
+        }
 
         return pessoa;
 
@@ -49,7 +50,7 @@ public class PessoaDTO {
         return nome;
     }
 
-    public Set<Long> getJogos() {
+    public Set<Long> getJogoIds() {
         return jogoIds;
     }
 

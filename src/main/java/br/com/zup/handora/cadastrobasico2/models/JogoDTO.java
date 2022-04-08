@@ -21,7 +21,7 @@ public class JogoDTO {
         this.link = link;
     }
 
-    public Jogo paraJogo() {
+    public Jogo toModel() {
         return new Jogo(nome, descricao, link);
     }
 

@@ -30,7 +30,7 @@ public class JogoController {
     @PostMapping
     public ResponseEntity<Void> postMethodName(@RequestBody @Valid JogoDTO jogoDTO,
                                                UriComponentsBuilder uriComponentsBuilder) {
-        Jogo jogo = jogoRepository.save(jogoDTO.paraJogo());
+        Jogo jogo = jogoRepository.save(jogoDTO.toModel());
 
         URI location = uriComponentsBuilder.path(BASE_URI + "/{id}")
                                            .buildAndExpand(jogo.getId())

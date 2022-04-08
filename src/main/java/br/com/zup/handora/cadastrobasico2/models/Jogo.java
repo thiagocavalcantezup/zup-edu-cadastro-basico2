@@ -1,10 +1,14 @@
 package br.com.zup.handora.cadastrobasico2.models;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -32,6 +36,9 @@ public class Jogo {
     @Column(nullable = false)
     private String link;
 
+    @ManyToMany(mappedBy = "jogos")
+    private Set<Pessoa> jogadores = new HashSet<>();
+
     /*
      * @deprecated Construtor de uso exclusivo do Hibernate
      */
@@ -46,6 +53,10 @@ public class Jogo {
 
     public Long getId() {
         return id;
+    }
+
+    public Set<Pessoa> getJogadores() {
+        return jogadores;
     }
 
 }

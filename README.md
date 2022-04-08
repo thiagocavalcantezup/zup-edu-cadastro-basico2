@@ -2,4 +2,5 @@
 
 ## Cadastro básico
 
-Siga os passos e aprenda a criar cadastros básicos
+- Siga os passos e aprenda a criar cadastros básicos
+- Aprenda a criar cadastros básicos com relacionamentos Muitos-para-Muitos

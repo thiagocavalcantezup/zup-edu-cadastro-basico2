@@ -2,6 +2,7 @@ package br.com.zup.handora.cadastrobasico2.controllers;
 
 import java.net.URI;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
@@ -48,9 +49,10 @@ public class PessoaController {
         return ResponseEntity.created(location).build();
     }
 
+    @Transactional
     @GetMapping("/{id}")
     public ResponseEntity<PessoaResponseDTO> show(@PathVariable Long id) {
-        Pessoa pessoa = pessoaRepository.findById(id)
+        Pessoa pessoa = pessoaRepository.findWithJogosById(id)
                                         .orElseThrow(
                                             () -> new ResponseStatusException(
                                                 HttpStatus.NOT_FOUND,

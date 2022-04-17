@@ -63,4 +63,16 @@ public class Jogo {
         return jogadores;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
 }

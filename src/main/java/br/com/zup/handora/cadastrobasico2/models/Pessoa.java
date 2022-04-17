@@ -48,4 +48,12 @@ public class Pessoa {
         return id;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public Set<Jogo> getJogos() {
+        return jogos;
+    }
+
 }

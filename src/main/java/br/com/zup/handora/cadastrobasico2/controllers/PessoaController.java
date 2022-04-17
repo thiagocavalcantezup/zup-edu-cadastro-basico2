@@ -4,15 +4,20 @@ import java.net.URI;
 
 import javax.validation.Valid;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.zup.handora.cadastrobasico2.models.Pessoa;
 import br.com.zup.handora.cadastrobasico2.models.PessoaDTO;
+import br.com.zup.handora.cadastrobasico2.models.PessoaResponseDTO;
 import br.com.zup.handora.cadastrobasico2.repositories.JogoRepository;
 import br.com.zup.handora.cadastrobasico2.repositories.PessoaRepository;
 
@@ -41,6 +46,19 @@ public class PessoaController {
                                            .toUri();
 
         return ResponseEntity.created(location).build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PessoaResponseDTO> show(@PathVariable Long id) {
+        Pessoa pessoa = pessoaRepository.findById(id)
+                                        .orElseThrow(
+                                            () -> new ResponseStatusException(
+                                                HttpStatus.NOT_FOUND,
+                                                "Não existe uma pessoa com o id informado."
+                                            )
+                                        );
+
+        return ResponseEntity.ok(new PessoaResponseDTO(pessoa));
     }
 
 }
